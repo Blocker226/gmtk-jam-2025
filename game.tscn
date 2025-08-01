@@ -1,0 +1,144 @@
+[gd_scene load_steps=6 format=3 uid="uid://bksikvdgcjcq1"]
+
+[ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://dn3tuf1wgn330" path="res://characters/plants/plant.tscn" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://xh5bex0prt0m" path="res://scripts/ui/variable_label.gd" id="3_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://b2umsupns000u" path="res://icon.svg" id="3_feb5d"]
+[ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="4_7jktm"]
+
+[node name="Game" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = -8.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="Plant1" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Plant2" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Plant3" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Plant4" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Plant5" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Plant6" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Plant7" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Plant8" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Plant9" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/HBoxContainer"]
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+theme = ExtResource("1_80nbo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelMoney" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer"]
+process_priority = -1
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "$%d"
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("3_fc0e3")
+variable = ExtResource("4_7jktm")
+
+[node name="Panel" type="Control" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -77.5
+offset_right = 64.0
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer/Panel/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer/Panel/PanelContainer"]
+layout_mode = 2
+
+[node name="PlantTexture" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer/Panel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_feb5d")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer/Panel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLANT NAME"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer/Panel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
