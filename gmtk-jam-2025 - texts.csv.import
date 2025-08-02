@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cvpcom1wmi4go"
+
+[deps]
+
+files=["res://gmtk-jam-2025 - texts.en.translation"]
+
+source_file="res://gmtk-jam-2025 - texts.csv"
+dest_files=["res://gmtk-jam-2025 - texts.en.translation"]
+
+[params]
+
+compress=true
+delimiter=0

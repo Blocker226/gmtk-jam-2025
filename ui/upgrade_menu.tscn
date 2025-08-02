@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6vphyoi740a0"]
+
+[ext_resource type="Script" uid="uid://dgmsl8gdvghsh" path="res://ui/scripts/upgrade_menu.gd" id="1_0gvwy"]
+[ext_resource type="Script" uid="uid://bvxwmoya38avl" path="res://ui/scripts/upgrade_list.gd" id="3_wl8nm"]
+[ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="4_sf0oj"]
+[ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="5_m2nq5"]
+
+[node name="UpgradeMenu" type="VBoxContainer" node_paths=PackedStringArray("upgrade_list", "buy_button")]
+offset_right = 512.0
+offset_bottom = 94.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_constants/separation = 0
+script = ExtResource("1_0gvwy")
+money = ExtResource("4_sf0oj")
+upgrade_list = NodePath("UpgradeList")
+buy_button = NodePath("BuyButton")
+
+[node name="UpgradeList" type="Tree" parent="."]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+columns = 2
+hide_folding = true
+enable_recursive_folding = false
+hide_root = true
+select_mode = 1
+scroll_horizontal_enabled = false
+script = ExtResource("3_wl8nm")
+
+[node name="BuyButton" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("5_m2nq5")
+theme_type_variation = &"SuccessButton"
+disabled = true
+text = "-"
+
+[connection signal="item_mouse_selected" from="UpgradeList" to="UpgradeList" method="_on_item_mouse_selected"]
+[connection signal="item_selected" from="UpgradeList" to="." method="_on_upgrade_list_item_selected"]
+[connection signal="item_selected" from="UpgradeList" to="UpgradeList" method="_on_item_selected"]
+[connection signal="nothing_selected" from="UpgradeList" to="." method="_on_upgrade_list_nothing_selected"]
+[connection signal="nothing_selected" from="UpgradeList" to="UpgradeList" method="_on_nothing_selected"]
+[connection signal="pressed" from="BuyButton" to="." method="_on_buy_button_pressed"]

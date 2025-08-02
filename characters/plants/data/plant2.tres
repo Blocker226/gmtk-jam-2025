@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PlantData" load_steps=5 format=3 uid="uid://f0sjp3ilcmmi"]
+
+[ext_resource type="Script" uid="uid://d38jnkld1yjbe" path="res://characters/plants/scripts/plant_data.gd" id="1_v74en"]
+[ext_resource type="Texture2D" uid="uid://wb30mnoar87t" path="res://characters/plants/sprites/plant_2_0.tres" id="2_v74en"]
+[ext_resource type="Texture2D" uid="uid://bdm2vctu2f5ns" path="res://characters/plants/sprites/plant_2_1.tres" id="3_ltb7a"]
+[ext_resource type="Texture2D" uid="uid://dbu8c2eadao4k" path="res://characters/plants/sprites/plant_2_2.tres" id="4_v74en"]
+
+[resource]
+script = ExtResource("1_v74en")
+name = "Flower 2"
+description = "A little more love."
+grow_time = 60.0
+water_effectiveness = 1.0
+initial_cost = 200
+sell_price = 50
+textures = Array[Texture2D]([ExtResource("2_v74en"), ExtResource("3_ltb7a"), ExtResource("4_v74en")])
+offset = Vector2(0, -40)
+metadata/_custom_type_script = "uid://d38jnkld1yjbe"

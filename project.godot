@@ -33,6 +33,14 @@ window/size/resizable=false
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[gui]
+
+theme/custom="uid://dx8n5sb8fw6e4"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://gmtk-jam-2025 - texts.en.translation")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

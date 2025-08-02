@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://4u312xt5whdy"]
+
+[ext_resource type="Script" uid="uid://busfyffxmdxxd" path="res://ui/scripts/info_panel.gd" id="1_lv2uk"]
+[ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_xmi3u"]
+[ext_resource type="Texture2D" uid="uid://gokhg1fq7k0t" path="res://characters/plants/sprites/plant_1_1.tres" id="3_lv2uk"]
+
+[node name="InfoPanel" type="PanelContainer" node_paths=PackedStringArray("icon", "name_label", "desc_label", "sell_price_label", "progressBar")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -77.0
+offset_right = 192.0
+offset_bottom = 307.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_xmi3u")
+script = ExtResource("1_lv2uk")
+icon = NodePath("MarginContainer/VBoxContainer/AspectRatioContainer/IconPanel/PlantTexture")
+name_label = NodePath("MarginContainer/VBoxContainer/Label")
+desc_label = NodePath("MarginContainer/VBoxContainer/RichTextLabel")
+sell_price_label = NodePath("MarginContainer/VBoxContainer/LabelMoney")
+progressBar = NodePath("MarginContainer/VBoxContainer/ProgressBar")
+metadata/_custom_type_script = "uid://busfyffxmdxxd"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_xmi3u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="IconPanel" type="Panel" parent="MarginContainer/VBoxContainer/AspectRatioContainer"]
+clip_children = 1
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xmi3u")
+theme_type_variation = &"PlantIcon"
+
+[node name="PlantTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/AspectRatioContainer/IconPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -254.0
+offset_top = -384.0
+offset_right = 258.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_lv2uk")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_xmi3u")
+theme_type_variation = &"HeaderLarge"
+text = "PLANT NAME"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_xmi3u")
+theme_type_variation = &"SecondaryRichTextLabel"
+text = "This is a plant"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="LabelMoney" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+process_priority = -1
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme = ExtResource("1_xmi3u")
+text = "Sell Price: $%d"
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2

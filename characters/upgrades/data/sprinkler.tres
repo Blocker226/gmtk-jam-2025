@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SprinklerUpgrade" load_steps=3 format=3 uid="uid://ts5mxg212lji"]
+
+[ext_resource type="Texture2D" uid="uid://eq76p81vikj5" path="res://characters/upgrades/sprites/upgrade_sprinkler.tres" id="1_h24dh"]
+[ext_resource type="Script" uid="uid://wiuai65mqye5" path="res://characters/upgrades/scripts/sprinkler_upgrade.gd" id="2_h24dh"]
+
+[resource]
+script = ExtResource("2_h24dh")
+delay = 5.0
+name = "Sprinkler"
+description = "Automates watering of the plant."
+icon = ExtResource("1_h24dh")
+type = 0
+is_repeatable = false
+base_price = 20
+requirements = Dictionary[String, Variant]({})
+added_keywords = Dictionary[String, Variant]({
+"sprinkler": 0
+})
+metadata/_custom_type_script = "uid://hbhgyde4k0cy"

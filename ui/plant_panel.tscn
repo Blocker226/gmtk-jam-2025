@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://mcou334my5x6"]
+
+[ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_dsenb"]
+[ext_resource type="Script" uid="uid://csp53sermbg1l" path="res://ui/scripts/plant_panel.gd" id="2_4drqn"]
+[ext_resource type="Script" uid="uid://xh5bex0prt0m" path="res://scripts/ui/variable_label.gd" id="2_8lnkd"]
+[ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="3_4drqn"]
+[ext_resource type="PackedScene" uid="uid://4u312xt5whdy" path="res://ui/info_panel.tscn" id="4_2opcq"]
+[ext_resource type="Script" uid="uid://dy58i4xdggro3" path="res://ui/scripts/news_label.gd" id="5_4drqn"]
+[ext_resource type="Script" uid="uid://dip7yyw50h5ro" path="res://scripts/plant_selection.gd" id="5_kafg6"]
+[ext_resource type="PackedScene" uid="uid://b6vphyoi740a0" path="res://ui/upgrade_menu.tscn" id="7_2opcq"]
+
+[node name="PlantPanel" type="Panel" node_paths=PackedStringArray("selection", "news_label", "info_panel", "upgrade_menu")]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+theme = ExtResource("1_dsenb")
+script = ExtResource("2_4drqn")
+selection = NodePath("PlantSelection")
+news_label = NodePath("VBoxContainer/MarginContainer/NewsLabel")
+info_panel = NodePath("VBoxContainer/InfoPanel")
+upgrade_menu = NodePath("VBoxContainer/UpgradeMenu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelMoney" type="RichTextLabel" parent="VBoxContainer"]
+process_priority = -1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme = ExtResource("1_dsenb")
+theme_type_variation = &"MoneyLabel"
+bbcode_enabled = true
+text = "$%d"
+scroll_active = false
+horizontal_alignment = 1
+script = ExtResource("2_8lnkd")
+variable = ExtResource("3_4drqn")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NewsLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme = ExtResource("1_dsenb")
+theme_override_colors/default_color = Color(0.682353, 0.698039, 0.713726, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_4drqn")
+news_count = 3
+
+[node name="InfoPanel" parent="VBoxContainer" instance=ExtResource("4_2opcq")]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="UpgradeMenu" parent="VBoxContainer" node_paths=PackedStringArray("selection") instance=ExtResource("7_2opcq")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.8
+selection = NodePath("../../PlantSelection")
+
+[node name="PlantSelection" type="Node" parent="."]
+script = ExtResource("5_kafg6")
+metadata/_custom_type_script = "uid://dip7yyw50h5ro"
+
+[connection signal="selection_changed" from="PlantSelection" to="." method="_on_plant_selection_selection_changed"]

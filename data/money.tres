@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_jeqra")
-value = 100
+value = 10000
 metadata/_custom_type_script = "uid://dt3y56vxslhm6"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="UpgradeData" load_steps=3 format=3 uid="uid://0c2v5sxvnc63"]
+
+[ext_resource type="Texture2D" uid="uid://eq76p81vikj5" path="res://characters/upgrades/sprites/upgrade_sprinkler.tres" id="1_36tuu"]
+[ext_resource type="Script" uid="uid://hbhgyde4k0cy" path="res://characters/upgrades/scripts/upgrade_data.gd" id="1_uoufv"]
+
+[resource]
+script = ExtResource("1_uoufv")
+name = "Additional Pumps"
+description = "Sprinklers will water plants 20% more frequently."
+icon = ExtResource("1_36tuu")
+type = 0
+is_repeatable = true
+base_price = 100
+requirements = Dictionary[String, Variant]({
+"sprinkler": null
+})
+added_keywords = Dictionary[String, Variant]({
+"sprinkler_speed": 0.8
+})
+metadata/_custom_type_script = "uid://hbhgyde4k0cy"
