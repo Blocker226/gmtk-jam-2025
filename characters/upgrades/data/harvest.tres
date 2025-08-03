@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="HarvestUpgrade" load_steps=3 format=3 uid="uid://r02n5ky4dve6"]
+
+[ext_resource type="Texture2D" uid="uid://d0ufplw7q8yr6" path="res://characters/upgrades/sprites/upgrade_harvester.tres" id="1_k7o2j"]
+[ext_resource type="Script" uid="uid://cm2m1f6xnvai1" path="res://characters/upgrades/scripts/harvest_upgrade.gd" id="1_ur6em"]
+
+[resource]
+script = ExtResource("1_ur6em")
+harvest_delay = 2.0
+name = "Harvester 5000"
+description = "The latest and greatest in compact, automated harvesting!"
+icon = ExtResource("1_k7o2j")
+type = 0
+is_repeatable = false
+base_price = 5000
+requirements = Dictionary[String, Variant]({})
+added_keywords = Dictionary[String, Variant]({
+"harvest": true
+})
+metadata/_custom_type_script = "uid://hbhgyde4k0cy"

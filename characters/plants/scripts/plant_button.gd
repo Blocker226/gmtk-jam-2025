@@ -1,6 +1,7 @@
 class_name PlantButton extends Button
 
 signal plant_pressed(plant: PlantButton)
+signal stats_changed()
 
 enum State {
 	EMPTY,
@@ -13,6 +14,22 @@ enum State {
 @export var money: IntVariable
 @export var price_label: Label
 @export var upgrades: PlantUpgrades
+@export var floating_text: FloatingTextSpawner
+@export_group("Keywords")
+@export var growth_multiply_keyword: String = "growth_multiply"
+@export var water_add_keyword: String = "water_add"
+@export var water_multiply_keyword: String = "water_multiply"
+@export var replant_keyword: String = "replant"
+@export var harvest_keyword: String = "harvest"
+@export_group("Effects")
+@export var water_particles: WaterParticles
+
+var stats_harvested: int = 0:
+	get:
+		return stats_harvested
+	set(value):
+		stats_harvested = value
+		stats_changed.emit()
 
 var state: State = State.EMPTY
 var growth: float = 0
@@ -25,7 +42,8 @@ func _ready() -> void:
 	assert(price_label)
 	if enabled:
 		price_label.visible = false
-	price_label.text = price_label.text % plant.initial_cost
+
+	price_label.text = price_label.text % format_number(plant.initial_cost)
 
 
 func _physics_process(delta: float) -> void:
@@ -40,7 +58,9 @@ func add_upgrade(upgrade: UpgradeData) -> void:
 
 
 func get_water_effectiveness() -> float:
-	return plant.water_effectiveness
+	return plant.water_effectiveness * upgrades.upgrade_keywords.get(
+		water_multiply_keyword, 1) + upgrades.upgrade_keywords.get(
+		water_add_keyword, 0)
 
 
 func _on_pressed() -> void:
@@ -53,9 +73,10 @@ func _on_pressed() -> void:
 		_plant()
 		return
 	if growth >= plant.grow_time:
-		_harvest()
+		harvest()
 		return
-	update_growth(plant.water_effectiveness)
+	update_growth(get_water_effectiveness())
+	water_particles.play_at_mouse()
 
 
 func update_growth(progress: float) -> bool:
@@ -65,22 +86,29 @@ func update_growth(progress: float) -> bool:
 	for upgrade: UpgradeData in upgrades.current_upgrades:
 		total_progress += upgrade.get_added_growth(progress)
 
+	total_progress *= upgrades.upgrade_keywords.get(growth_multiply_keyword, 1)
+
 	growth = minf(growth + total_progress, plant.grow_time)
 	for event in plant_events:
 		event.growth_change(growth, plant.grow_time)
 		if growth >= plant.grow_time:
+			state = State.READY
 			event.growth_complete()
 	return true
 
 
-func _harvest() -> void:
+func harvest() -> void:
 	growth = 0
 	for event in plant_events:
 		event.harvest()
 	state = State.EMPTY
 	money.value += plant.sell_price
+	floating_text.spawn_floating_text(
+		"+$%d" % plant.sell_price, Color.GREEN, plant.icon)
 
-	if "replant" in upgrades.upgrade_keywords:
+	stats_harvested += 1
+
+	if replant_keyword in upgrades.upgrade_keywords:
 		_plant()
 
 
@@ -99,3 +127,20 @@ func _purchase() -> bool:
 	enabled = true
 	price_label.visible = false
 	return true
+
+
+func format_number(number: int) -> String:
+	var human_number: String = ""
+	var i: int = 0
+	var s: String = str(number)
+	if len(s) > 3:
+		for c in s.reverse():
+			if i == 3:
+				human_number = ',' + human_number
+				i = 0
+			i += 1
+			human_number = c + human_number
+	else:
+		human_number = s
+
+	return human_number

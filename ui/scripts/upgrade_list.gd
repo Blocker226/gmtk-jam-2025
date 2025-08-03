@@ -4,15 +4,16 @@ var all_upgrades: Array[UpgradeData]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_column_title(0, "Upgrades")
 	set_column_expand_ratio(0, 7)
 	set_column_expand_ratio(1, 3)
 
-	for file_name in DirAccess.get_files_at("res://characters/upgrades/data"):
-		if (file_name.get_extension() == "import"):
-			file_name = file_name.replace('.tres', '')
+	for file_name in ResourceLoader.list_directory(
+		"res://characters/upgrades/data"):
 
-		var upgrade: UpgradeData = ResourceLoader.load(
-			"res://characters/upgrades/data/" + file_name,"UpgradeData") \
+		print("res://characters/upgrades/data/" + file_name)
+		var upgrade: UpgradeData = load(
+			"res://characters/upgrades/data/" + file_name) \
 			as UpgradeData
 
 		assert(upgrade)
@@ -40,6 +41,13 @@ func _ready() -> void:
 		new_item.collapsed = true
 
 
+func deselect_collapse_all() -> void:
+	deselect_all()
+	var all_items: Array[TreeItem] = get_root().get_children()
+	for item in all_items:
+		item.collapsed = true
+
+
 func get_selected_upgrade() -> UpgradeData:
 	assert(get_selected())
 	var metadata: Variant = get_selected().get_metadata(0)
@@ -58,8 +66,10 @@ func update_selection(plant: PlantButton) -> void:
 		var data: UpgradeData = metadata
 		var valid: bool = data.is_valid(plant.upgrades)
 		item.visible = valid
+		if not valid:
+			item.deselect(0)
 		item.set_text(1, "$%d" % data.get_price(
-			plant.upgrades.count_existing_upgrades(data.name)))
+			plant.upgrades.get_count(data)))
 
 
 func _on_item_mouse_selected(

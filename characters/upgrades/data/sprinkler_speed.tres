@@ -10,7 +10,7 @@ description = "Sprinklers will water plants 20% more frequently."
 icon = ExtResource("1_36tuu")
 type = 0
 is_repeatable = true
-base_price = 100
+base_price = 200
 requirements = Dictionary[String, Variant]({
 "sprinkler": null
 })

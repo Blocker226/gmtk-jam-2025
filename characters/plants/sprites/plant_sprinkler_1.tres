@@ -4,4 +4,4 @@
 
 [resource]
 atlas = ExtResource("1_pygdi")
-region = Rect2(512, 1024, 512, 512)
+region = Rect2(0, 2048, 512, 512)

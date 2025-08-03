@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="PlantData" load_steps=7 format=3 uid="uid://drr33a4tkeld5"]
+
+[ext_resource type="Texture2D" uid="uid://baq31pb8s4mtw" path="res://characters/plants/plant6/plant6_icon.tres" id="1_j5fmb"]
+[ext_resource type="Script" uid="uid://d38jnkld1yjbe" path="res://characters/plants/scripts/plant_data.gd" id="2_qi82y"]
+[ext_resource type="Texture2D" uid="uid://bki30vgqixxbk" path="res://characters/plants/plant6/plant6_0.tres" id="3_550ql"]
+[ext_resource type="Texture2D" uid="uid://4x3dyf586c0m" path="res://characters/plants/plant6/plant6_1.tres" id="4_pw4al"]
+[ext_resource type="Texture2D" uid="uid://gcommbhusd10" path="res://characters/plants/plant6/plant6_2.tres" id="5_mqcj7"]
+[ext_resource type="Texture2D" uid="uid://dn0os0k8wqal4" path="res://characters/plants/plant6/plant6_3.tres" id="6_drs6t"]
+
+[resource]
+script = ExtResource("2_qi82y")
+icon = ExtResource("1_j5fmb")
+name = "PLANT6_NAME"
+description = "PLANT6_DESC"
+grow_time = 360.0
+water_effectiveness = 1.0
+initial_cost = 50000
+sell_price = 1100
+textures = Array[Texture2D]([ExtResource("3_550ql"), ExtResource("4_pw4al"), ExtResource("5_mqcj7"), ExtResource("6_drs6t")])
+offset = Vector2(0, -40)
+metadata/_custom_type_script = "uid://d38jnkld1yjbe"

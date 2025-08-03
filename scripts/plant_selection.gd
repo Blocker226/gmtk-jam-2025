@@ -20,8 +20,16 @@ func _ready() -> void:
 
 
 func select(new_selected_plant: PlantButton) -> void:
+	if selected_plant and selected_plant.stats_changed.is_connected(
+		_on_plant_stats_changed):
+		selected_plant.stats_changed.disconnect(_on_plant_stats_changed)
 	selected_plant = new_selected_plant
+	selected_plant.stats_changed.connect(_on_plant_stats_changed)
 
 
 func _on_plant_pressed(plant: PlantButton) -> void:
 	select(plant)
+
+
+func _on_plant_stats_changed() -> void:
+	selection_changed.emit()

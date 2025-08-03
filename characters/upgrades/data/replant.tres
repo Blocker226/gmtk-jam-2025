@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UpgradeData" load_steps=3 format=3 uid="uid://cwgqxiy7ls1q4"]
 
 [ext_resource type="Script" uid="uid://hbhgyde4k0cy" path="res://characters/upgrades/scripts/upgrade_data.gd" id="1_5tfab"]
-[ext_resource type="Texture2D" uid="uid://b2umsupns000u" path="res://icon.svg" id="1_30v7d"]
+[ext_resource type="Texture2D" uid="uid://g00w7qe0vkbm" path="res://characters/upgrades/sprites/upgrade_replant.tres" id="1_30v7d"]
 
 [resource]
 script = ExtResource("1_5tfab")
@@ -10,9 +10,8 @@ description = "Automates re-planting of seeds after harvesting."
 icon = ExtResource("1_30v7d")
 type = 0
 is_repeatable = false
-base_price = 200
+base_price = 1000
 requirements = Dictionary[String, Variant]({})
 added_keywords = Dictionary[String, Variant]({
 "replant": true
 })
-metadata/_custom_type_script = "uid://cmvfg170ywqnc"

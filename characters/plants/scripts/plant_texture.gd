@@ -12,7 +12,8 @@ func _ready() -> void:
 
 func _on_plant_event_growth_changed(growth: float, growth_time: float) -> void:
 	texture = \
-	button.plant.textures[roundi(growth / growth_time * (texture_length - 2))]
+	button.plant.textures[roundi(
+		growth / growth_time * (texture_length - 3)) + 1]
 
 
 func _on_plant_event_growth_completed() -> void:
@@ -20,10 +21,14 @@ func _on_plant_event_growth_completed() -> void:
 
 
 func _on_plant_event_harvested() -> void:
-	visible = false
+	texture = button.plant.textures[0]
 
 
 func _on_plant_event_planted() -> void:
+	pass
+
+
+func _on_plant_event_purchased() -> void:
 	visible = true
 	texture = button.plant.textures[0]
 

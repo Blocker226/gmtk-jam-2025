@@ -15,7 +15,7 @@ func _ready() -> void:
 func _on_buy_button_pressed() -> void:
 	var upgrade: UpgradeData = upgrade_list.get_selected_upgrade()
 	var price := upgrade.get_price(
-		current_plant.upgrades.count_existing_upgrades(upgrade.name))
+		current_plant.upgrades.get_count(upgrade))
 	if money.value < price:
 		return
 	money.value -= price
@@ -50,7 +50,7 @@ func _on_upgrade_list_nothing_selected() -> void:
 func update_selection(plant: PlantButton) -> void:
 	current_plant = plant
 	upgrade_list.update_selection(plant)
-	upgrade_list.deselect_all()
+	upgrade_list.deselect_collapse_all()
 
 
 func _disable_buy_button() -> void:
@@ -62,5 +62,5 @@ func _get_current_price() -> int:
 	var upgrade: UpgradeData = upgrade_list.get_selected_upgrade()
 	if upgrade:
 		return upgrade.get_price(
-			current_plant.upgrades.count_existing_upgrades(upgrade.name))
+			current_plant.upgrades.get_count(upgrade))
 	return 0

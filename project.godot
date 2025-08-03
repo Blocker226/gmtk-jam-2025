@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="gmtk-jam-2025"
+config/name="Plant for the World"
+config/version="1.2"
 run/main_scene="uid://bksikvdgcjcq1"
 config/features=PackedStringArray("4.4")
-config/icon="res://icon.svg"
+boot_splash/fullsize=false
+boot_splash/image="uid://dggs707gg3m36"
+config/icon="uid://dggs707gg3m36"
+boot_splash/image.editor_hint=""
 
 [debug]
 
@@ -45,3 +49,4 @@ locale/translations=PackedStringArray("res://gmtk-jam-2025 - texts.en.translatio
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

@@ -6,7 +6,7 @@ signal upgrade_installed(upgrade: UpgradeData)
 
 var upgrade_keywords: Dictionary[String, Variant] = {}
 
-var current_upgrades: Array[UpgradeData] = []
+var current_upgrades: Dictionary[UpgradeData, int] = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,7 +14,10 @@ func _ready() -> void:
 
 func install_upgrade(upgrade: UpgradeData) -> void:
 	upgrade.on_upgrade_installed(self)
-	current_upgrades.append(upgrade)
+	if current_upgrades.has(upgrade):
+		current_upgrades[upgrade] += 1
+	else:
+		current_upgrades[upgrade] = 1
 	for key in upgrade_keywords:
 		print("%s: %s" % [key, upgrade_keywords[key]])
 	for existing_upgrade in current_upgrades:
@@ -25,11 +28,9 @@ func install_upgrade(upgrade: UpgradeData) -> void:
 		if child is Control:
 			var control := child as Control
 			control.visible = true
+	for key in current_upgrades:
+		print("%s: %s x %d" % [key, key.name, current_upgrades[key]])
 	upgrade_installed.emit(upgrade)
 
-func count_existing_upgrades(upgrade_name: String) -> int:
-	var count: int = 0
-	for upgrade in current_upgrades:
-		if upgrade.name == upgrade_name:
-			count += 1
-	return count
+func get_count(upgrade: UpgradeData) -> int:
+	return current_upgrades.get(upgrade, 0)

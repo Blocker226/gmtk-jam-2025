@@ -45,7 +45,10 @@ func is_valid(plant_upgrades: PlantUpgrades) -> bool:
 func on_upgrade_installed(plant_upgrades: PlantUpgrades) -> void:
 	print("Installing upgrade %s" % name)
 	for key in added_keywords:
-		plant_upgrades.upgrade_keywords[key] = added_keywords[key]
+		if key.contains("_add") and plant_upgrades.upgrade_keywords.has(key):
+			plant_upgrades.upgrade_keywords[key] += added_keywords[key]
+		else:
+			plant_upgrades.upgrade_keywords[key] = added_keywords[key]
 
 ## This is called after any upgrade is installed, for a recalculation.
 func refresh(_plant_upgrades: PlantUpgrades) -> void:

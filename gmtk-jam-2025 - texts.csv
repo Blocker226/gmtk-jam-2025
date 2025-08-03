@@ -2,32 +2,32 @@ keys,en
 TUTORIAL_1,Hello! Buy a plot of land over there by clicking on it.
 TUTORIAL_2,Great! Now you can grow and harvest to your heart's content by clicking. Buy stuff down below. Have fun!
 NEWS_1,News: test
-NEWS_2,News: people are hongry
-NEWS_3,"News: Billionaire steps up to solve world hunger, backs out after being told how."
-NEWS_4,
-NEWS_5,
+NEWS_2,News: Big organisation claims 6.6 billion dollars required to end world hunger
+NEWS_3,"News: Rich guy attempts to solve world hunger, then gives up."
+NEWS_4,"News: Water confirmed to not be ""wet"", experts say."
+NEWS_5,News. Big healthcare firm claims 6.6 billion dollars required to solve world healthcare crisis
 NEWS_6,
 NEWS_7,
 NEWS_8,
 NEWS_9,
 NEWS_10,
 PLANT1_NAME,Yellow Flower
-PLANT1_DESC,"Small, pretty things that are actually weeds."
+PLANT1_DESC,"Small, pretty things."
 PLANT2_NAME,Peanut Plant
-PLANT2_DESC,"Packed with essential minerals, vitamins and calories, peanuts are great for a malnourished population."
-PLANT3_NAME,Water Plant
-PLANT3_DESC,"Beneath its hard exterior, this melon is 92% made of water."
-PLANT2_NAME,Medicinal Plant
-PLANT2_DESC,Growing this plant produces a fruit with antiseptic and regenerative properties.
-PLANT2_NAME,Lantern Plant
-PLANT2_DESC,"Growing this plants gives off warmth on cold nights, and light in unsafe areas."
-PLANT2_NAME,House Plant
-PLANT2_DESC,This plant produces a house.
-PLANT2_NAME,Fertiliser Plant
-PLANT2_DESC,"This plant produces a fruit that aids other plants in their growth speed, when crushed and placed in soil."
-PLANT2_NAME,Composting Plant
-PLANT2_DESC,This plant is capable of handling human and food waste.
-PLANT2_NAME,Water Purification Plant
-PLANT2_DESC,"This plant thrive on water with bio waste, while producing oxygen and water through photosynthesis"
-PLANT2_NAME,Education Plant
-PLANT2_DESC,This plant can be a source of knowledge and wisdom if nurtured. 
+PLANT2_DESC,"Packed with essential minerals, vitamins and calories, its seeds are great for a malnourished population."
+PLANT3_NAME,Water Melon
+PLANT3_DESC,92% water.
+PLANT4_NAME,Torch Plant
+PLANT4_DESC,"It's fruit glows like a bulb, producing warmth and light; great for dark, unsafe areas."
+PLANT5_NAME,Tango
+PLANT5_DESC,Its sap provides antiseptic and regenerative properties.
+PLANT6_NAME,House Plant
+PLANT6_DESC,Its cement-like sap that works great for building houses.
+PLANT7_NAME,Poetia
+PLANT7_DESC,Each flower produces a poem with a snippet of knowledge from around the world.
+PLANT8_NAME,Whistling Bush
+PLANT8_DESC,"Pluck a fruit and you'll hear a different tune when blown-into, depending on size and season."
+PLANT9_NAME,"""Grapevine"""
+PLANT9_DESC,"A type of grapevine that whispers the answers to your questions. You can now say, ""I heard it on the grapevine""."
+PLANT10_NAME,X
+PLANT10_DESC,X

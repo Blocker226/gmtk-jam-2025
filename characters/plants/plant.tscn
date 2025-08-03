@@ -1,23 +1,30 @@
-[gd_scene load_steps=23 format=3 uid="uid://bicqnypw1y33c"]
+[gd_scene load_steps=32 format=3 uid="uid://bicqnypw1y33c"]
 
 [ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_n4sv4"]
 [ext_resource type="Texture2D" uid="uid://c74t2krgwtclb" path="res://characters/plants/sprites/grass_1.tres" id="2_coccc"]
 [ext_resource type="Script" uid="uid://c71mtb0vc3uum" path="res://characters/plants/scripts/plant_button.gd" id="2_hks5a"]
 [ext_resource type="Script" uid="uid://c7wnel6l6wxjg" path="res://characters/plants/scripts/plant_texture.gd" id="3_coccc"]
 [ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="4_kgrno"]
-[ext_resource type="Resource" uid="uid://ce5fxm72vyo8d" path="res://characters/plants/data/plant1.tres" id="5_4s45c"]
+[ext_resource type="Resource" uid="uid://ce5fxm72vyo8d" path="res://characters/plants/plant1/plant1.tres" id="5_4s45c"]
 [ext_resource type="Script" uid="uid://bpgw2mqe64mig" path="res://characters/plants/scripts/plant_event.gd" id="6_la6sr"]
 [ext_resource type="Script" uid="uid://c180o3q181djf" path="res://characters/plants/scripts/dirt_texture.gd" id="6_wnn8r"]
-[ext_resource type="Texture2D" uid="uid://c37cppw8isn12" path="res://characters/plants/sprites/dirt_1.tres" id="7_8fput"]
+[ext_resource type="Texture2D" uid="uid://c37cppw8isn12" path="res://characters/plants/sprites/farm_1.tres" id="7_8fput"]
 [ext_resource type="Texture2D" uid="uid://pd2n22wxtdxq" path="res://characters/plants/sprites/grass_2.tres" id="7_b2srs"]
 [ext_resource type="Script" uid="uid://ckpmbme07fgl7" path="res://characters/plants/scripts/plant_progress_bar.gd" id="7_ecky2"]
-[ext_resource type="Texture2D" uid="uid://bih5b6hnpo4m7" path="res://characters/plants/sprites/dirt_2.tres" id="8_b2srs"]
+[ext_resource type="Texture2D" uid="uid://bih5b6hnpo4m7" path="res://characters/plants/sprites/farm_2.tres" id="8_b2srs"]
 [ext_resource type="FontFile" uid="uid://ca7p87rppkfuv" path="res://fonts/BASQUIAT.otf" id="8_srawq"]
 [ext_resource type="Script" uid="uid://oqxu4osgwk5f" path="res://characters/plants/scripts/plant_upgrades.gd" id="10_uhryd"]
-[ext_resource type="Texture2D" uid="uid://gokhg1fq7k0t" path="res://characters/plants/sprites/plant_1_1.tres" id="11_0s5cb"]
+[ext_resource type="Texture2D" uid="uid://b3e5ai4io1em0" path="res://characters/plants/plant1/plant_1_3.tres" id="11_0s5cb"]
 [ext_resource type="Texture2D" uid="uid://ur55pk74wnfw" path="res://characters/plants/sprites/plant_sprinkler_0.tres" id="16_xons5"]
 [ext_resource type="Texture2D" uid="uid://cen2y0yegpt7k" path="res://characters/plants/sprites/plant_sprinkler_1.tres" id="17_kyk40"]
 [ext_resource type="Texture2D" uid="uid://c54sy8vkf5pey" path="res://characters/plants/sprites/plant_sprinkler_2.tres" id="18_y1jwl"]
+[ext_resource type="Texture2D" uid="uid://7vihhij5a6c0" path="res://characters/plants/sprites/plant_replant.tres" id="19_hwt3u"]
+[ext_resource type="Texture2D" uid="uid://cei3pe50yafk7" path="res://characters/plants/sprites/plant_harvester.tres" id="19_ijqpc"]
+[ext_resource type="Script" uid="uid://c82ekxtclnuxc" path="res://ui/scripts/floating_text_spawner.gd" id="19_y1jwl"]
+[ext_resource type="PackedScene" uid="uid://l0go24ilcv23" path="res://ui/floating_text.tscn" id="20_uh6bo"]
+[ext_resource type="Texture2D" uid="uid://b5j4n0n2ilvb3" path="res://effects/water_particle.png" id="21_t3g72"]
+[ext_resource type="Script" uid="uid://6ug5opat1yr8" path="res://effects/water_particles.gd" id="22_seewa"]
+[ext_resource type="AudioStream" uid="uid://bs0bo7bvvwc07" path="res://audio/water_spray.wav" id="23_iumkd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uhryd"]
 font = ExtResource("8_srawq")
@@ -56,13 +63,35 @@ tracks/0/keys = {
 "values": [ExtResource("16_xons5"), ExtResource("17_kyk40"), ExtResource("18_y1jwl"), ExtResource("16_xons5")]
 }
 
+[sub_resource type="Animation" id="Animation_seewa"]
+resource_name = "fast"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("17_kyk40"), ExtResource("18_y1jwl")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_seewa"]
 _data = {
 &"RESET": SubResource("Animation_t3g72"),
+&"fast": SubResource("Animation_seewa"),
 &"run": SubResource("Animation_uh6bo")
 }
 
-[node name="Plant" type="Button" node_paths=PackedStringArray("price_label", "upgrades") groups=["Plants"]]
+[sub_resource type="Gradient" id="Gradient_seewa"]
+offsets = PackedFloat32Array(0.1, 0.25, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Plant" type="Button" node_paths=PackedStringArray("price_label", "upgrades", "floating_text", "water_particles") groups=["Plants"]]
 offset_right = 256.0
 offset_bottom = 256.0
 size_flags_horizontal = 3
@@ -74,6 +103,8 @@ plant = ExtResource("5_4s45c")
 money = ExtResource("4_kgrno")
 price_label = NodePath("Label")
 upgrades = NodePath("PlantUpgrades")
+floating_text = NodePath("FloatingTextSpawner")
+water_particles = NodePath("WaterParticles")
 
 [node name="DirtTexture" type="TextureRect" parent="."]
 z_index = -1
@@ -98,7 +129,7 @@ script = ExtResource("6_la6sr")
 metadata/_custom_type_script = "uid://bpgw2mqe64mig"
 
 [node name="PlantTexture" type="TextureRect" parent="." node_paths=PackedStringArray("button")]
-z_index = -1
+z_index = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -129,7 +160,7 @@ offset_right = 51.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "$%d"
+text = "$%s"
 label_settings = SubResource("LabelSettings_uhryd")
 horizontal_alignment = 1
 
@@ -144,6 +175,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="PlantProgressBar" type="ProgressBar" parent="VBoxContainer"]
+z_index = 2
 layout_mode = 2
 script = ExtResource("7_ecky2")
 
@@ -183,12 +215,89 @@ libraries = {
 }
 playback_auto_capture = false
 
+[node name="Seed Dispenser" type="TextureRect" parent="PlantUpgrades"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.25
+anchor_right = 0.75
+anchor_bottom = 0.75
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("19_hwt3u")
+expand_mode = 2
+
+[node name="Harvester 5000" type="TextureRect" parent="PlantUpgrades"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("19_ijqpc")
+expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="PlantUpgrades/Harvester 5000"]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.9
+anchor_right = 1.0
+anchor_bottom = 0.9
+offset_top = -11.4
+offset_bottom = -3.39999
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_n4sv4")
+theme_type_variation = &"MoneyProgressBar"
+show_percentage = false
+
+[node name="FloatingTextSpawner" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("19_y1jwl")
+scene = ExtResource("20_uh6bo")
+
+[node name="WaterParticles" type="CPUParticles2D" parent="." node_paths=PackedStringArray("sound")]
+emitting = false
+amount = 16
+texture = ExtResource("21_t3g72")
+lifetime = 0.35
+one_shot = true
+lifetime_randomness = 0.5
+particle_flag_align_y = true
+direction = Vector2(0, 1)
+spread = 80.0
+initial_velocity_min = 160.0
+initial_velocity_max = 195.0
+color_ramp = SubResource("Gradient_seewa")
+script = ExtResource("22_seewa")
+sound = NodePath("AudioStreamPlayer2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WaterParticles"]
+stream = ExtResource("23_iumkd")
+
 [connection signal="pressed" from="." to="." method="_on_pressed"]
 [connection signal="purchased" from="DirtTexture/PlantEvent" to="DirtTexture" method="_on_plant_event_purchased"]
 [connection signal="growth_changed" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_growth_changed"]
 [connection signal="growth_completed" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_growth_completed"]
 [connection signal="harvested" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_harvested"]
 [connection signal="planted" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_planted"]
+[connection signal="purchased" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_purchased"]
 [connection signal="growth_changed" from="VBoxContainer/PlantProgressBar/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_growth_changed"]
 [connection signal="harvested" from="VBoxContainer/PlantProgressBar/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_harvested"]
 [connection signal="upgrade_installed" from="PlantUpgrades" to="DirtTexture" method="_on_plant_upgrades_upgrade_installed"]

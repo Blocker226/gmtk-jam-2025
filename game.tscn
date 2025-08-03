@@ -1,9 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://bksikvdgcjcq1"]
+[gd_scene load_steps=21 format=3 uid="uid://bksikvdgcjcq1"]
 
 [ext_resource type="PackedScene" uid="uid://bicqnypw1y33c" path="res://characters/plants/plant.tscn" id="1_e2o6t"]
-[ext_resource type="Resource" uid="uid://f0sjp3ilcmmi" path="res://characters/plants/data/plant2.tres" id="2_ryrav"]
-[ext_resource type="Resource" uid="uid://b4nii60n8mhea" path="res://characters/plants/data/plant3.tres" id="3_fc0e3"]
+[ext_resource type="Resource" uid="uid://f0sjp3ilcmmi" path="res://characters/plants/plant2/plant2.tres" id="2_ryrav"]
+[ext_resource type="Resource" uid="uid://b4nii60n8mhea" path="res://characters/plants/plant3/plant3.tres" id="3_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://mcou334my5x6" path="res://ui/plant_panel.tscn" id="3_feb5d"]
+[ext_resource type="Resource" uid="uid://bui8my1v6tshk" path="res://characters/plants/plant4/plant4.tres" id="4_7jktm"]
+[ext_resource type="Resource" uid="uid://drlen8ok4spw7" path="res://characters/plants/plant5/plant5.tres" id="5_ryrav"]
+[ext_resource type="Resource" uid="uid://drr33a4tkeld5" path="res://characters/plants/plant6/plant6.tres" id="6_hve3p"]
+[ext_resource type="Resource" uid="uid://dr2kaufidxcm0" path="res://characters/plants/plant7/plant7.tres" id="7_mfdv2"]
+[ext_resource type="Resource" uid="uid://bqlyy4or2cubf" path="res://characters/plants/plant8/plant8.tres" id="8_iotsf"]
+[ext_resource type="Resource" uid="uid://bxabtxcwfg6y5" path="res://characters/plants/plant9/plant9.tres" id="9_lc2xo"]
+[ext_resource type="Script" uid="uid://dxnlfnoe182fh" path="res://ui/scripts/splash_screen.gd" id="11_lc2xo"]
+[ext_resource type="Texture2D" uid="uid://bbctyd48o66i2" path="res://ui/art_BG Screen.png" id="11_mfdv2"]
+[ext_resource type="Texture2D" uid="uid://p4rg576t360r" path="res://ui/gmtk-game-jam-2025-logo-black.png" id="12_iotsf"]
+[ext_resource type="FontFile" uid="uid://ca7p87rppkfuv" path="res://fonts/BASQUIAT.otf" id="13_215e1"]
+[ext_resource type="Texture2D" uid="uid://b4i2mays8ykw" path="res://ui/art_BG End.png" id="15_80cx4"]
+[ext_resource type="Script" uid="uid://dp4xx1u8eix6" path="res://ui/scripts/end_screen.gd" id="15_e8heu"]
+[ext_resource type="Texture2D" uid="uid://dojehwmevu4i5" path="res://ui/logo_Logo.png" id="16_e8heu"]
+[ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="16_rvswv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7sc4i"]
+font = ExtResource("13_215e1")
+font_size = 36
+font_color = Color(0.08, 0.08, 0.08, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lc2xo"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
 
 [node name="Game" type="Node2D"]
 
@@ -74,21 +98,165 @@ plant = ExtResource("3_fc0e3")
 
 [node name="Plant4" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
+plant = ExtResource("4_7jktm")
 
 [node name="Plant5" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
+plant = ExtResource("5_ryrav")
 
 [node name="Plant6" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
+plant = ExtResource("6_hve3p")
 
 [node name="Plant7" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
+plant = ExtResource("7_mfdv2")
 
 [node name="Plant8" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
+plant = ExtResource("8_iotsf")
 
 [node name="Plant9" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
+plant = ExtResource("9_lc2xo")
 
 [node name="PlantPanel" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource("3_feb5d")]
 layout_mode = 2
+
+[node name="StartScreen" type="Button" parent="CanvasLayer"]
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+script = ExtResource("11_lc2xo")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartScreen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -264.0
+offset_bottom = 1016.0
+grow_horizontal = 2
+texture = ExtResource("11_mfdv2")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/StartScreen/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = 47.0
+offset_right = 255.0
+offset_bottom = 143.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "An idle gardening game by Blocker226 and charisitchy
+Click to continue"
+label_settings = SubResource("LabelSettings_7sc4i")
+horizontal_alignment = 1
+
+[node name="JamLogo" type="PanelContainer" parent="CanvasLayer/StartScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -111.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lc2xo")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartScreen/JamLogo"]
+layout_mode = 2
+texture = ExtResource("12_iotsf")
+expand_mode = 2
+
+[node name="EndScreen" type="Button" parent="CanvasLayer"]
+process_priority = -1
+visible = false
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+script = ExtResource("15_e8heu")
+money = ExtResource("16_rvswv")
+threshold = 6600000000
+fade_duration = 0.5
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/EndScreen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -264.0
+offset_bottom = 1016.0
+grow_horizontal = 2
+texture = ExtResource("15_80cx4")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/EndScreen/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -325.0
+offset_right = 255.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You've done it! The world is a much better place now, thanks to you.
+
+Thanks for playing"
+label_settings = SubResource("LabelSettings_7sc4i")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/EndScreen/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -171.0
+offset_top = -210.0
+offset_right = 171.0
+offset_bottom = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_e8heu")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/EndScreen/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = 175.0
+offset_right = 255.0
+offset_bottom = 226.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "click anywhere to keep  growing!"
+label_settings = SubResource("LabelSettings_7sc4i")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CanvasLayer/StartScreen" to="CanvasLayer/StartScreen" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/EndScreen" to="CanvasLayer/EndScreen" method="_on_pressed"]

@@ -1,19 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://mcou334my5x6"]
+[gd_scene load_steps=12 format=3 uid="uid://mcou334my5x6"]
 
 [ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_dsenb"]
 [ext_resource type="Script" uid="uid://csp53sermbg1l" path="res://ui/scripts/plant_panel.gd" id="2_4drqn"]
-[ext_resource type="Script" uid="uid://xh5bex0prt0m" path="res://scripts/ui/variable_label.gd" id="2_8lnkd"]
+[ext_resource type="Script" uid="uid://xh5bex0prt0m" path="res://scripts/ui/money_label.gd" id="2_8lnkd"]
 [ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="3_4drqn"]
 [ext_resource type="PackedScene" uid="uid://4u312xt5whdy" path="res://ui/info_panel.tscn" id="4_2opcq"]
 [ext_resource type="Script" uid="uid://dy58i4xdggro3" path="res://ui/scripts/news_label.gd" id="5_4drqn"]
+[ext_resource type="Script" uid="uid://c82ekxtclnuxc" path="res://ui/scripts/floating_text_spawner.gd" id="5_d5hgs"]
 [ext_resource type="Script" uid="uid://dip7yyw50h5ro" path="res://scripts/plant_selection.gd" id="5_kafg6"]
+[ext_resource type="PackedScene" uid="uid://l0go24ilcv23" path="res://ui/floating_text.tscn" id="6_d5hgs"]
 [ext_resource type="PackedScene" uid="uid://b6vphyoi740a0" path="res://ui/upgrade_menu.tscn" id="7_2opcq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d5hgs"]
+font_size = 12
 
 [node name="PlantPanel" type="Panel" node_paths=PackedStringArray("selection", "news_label", "info_panel", "upgrade_menu")]
 z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -776.0
+offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -23,37 +30,89 @@ script = ExtResource("2_4drqn")
 selection = NodePath("PlantSelection")
 news_label = NodePath("VBoxContainer/MarginContainer/NewsLabel")
 info_panel = NodePath("VBoxContainer/InfoPanel")
-upgrade_menu = NodePath("VBoxContainer/UpgradeMenu")
+upgrade_menu = NodePath("UpgradeMenu")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.6
 offset_left = 8.0
 offset_top = 8.0
 offset_right = -8.0
-offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LabelMoney" type="RichTextLabel" parent="VBoxContainer"]
-process_priority = -1
-custom_minimum_size = Vector2(0, 32)
+[node name="LabelMoney" type="RichTextLabel" parent="VBoxContainer" node_paths=PackedStringArray("floating_text", "progress_bar")]
+clip_contents = false
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 theme = ExtResource("1_dsenb")
 theme_type_variation = &"MoneyLabel"
 bbcode_enabled = true
-text = "$%d"
+text = "$%s"
 scroll_active = false
 horizontal_alignment = 1
 script = ExtResource("2_8lnkd")
 variable = ExtResource("3_4drqn")
+floating_text = NodePath("FloatingTextSpawner")
+progress_bar = NodePath("../PanelContainer2/MarginContainer/HBoxContainer/MoneyProgressBar")
+
+[node name="FloatingTextSpawner" type="Control" parent="VBoxContainer/LabelMoney"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_d5hgs")
+scene = ExtResource("6_d5hgs")
+metadata/_custom_type_script = "uid://c82ekxtclnuxc"
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_dsenb")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Goal: $6.6b"
+label_settings = SubResource("LabelSettings_d5hgs")
+
+[node name="MoneyProgressBar" type="ProgressBar" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+tooltip_text = "How far you are on track to saving the world! When you make 6.6 billion dollars, you've won the game!"
+theme = ExtResource("1_dsenb")
+theme_type_variation = &"MoneyProgressBar"
+max_value = 6.6e+09
+step = 1.0
+rounded = true
+show_percentage = false
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="NewsLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 64)
@@ -63,19 +122,30 @@ theme_override_colors/default_color = Color(0.682353, 0.698039, 0.713726, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("5_4drqn")
-news_count = 3
+news_count = 5
 
 [node name="InfoPanel" parent="VBoxContainer" instance=ExtResource("4_2opcq")]
-custom_minimum_size = Vector2(256, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="UpgradeMenu" parent="VBoxContainer" node_paths=PackedStringArray("selection") instance=ExtResource("7_2opcq")]
-layout_mode = 2
+[node name="UpgradeMenu" parent="." node_paths=PackedStringArray("selection") instance=ExtResource("7_2opcq")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_stretch_ratio = 0.8
-selection = NodePath("../../PlantSelection")
+selection = NodePath("../PlantSelection")
 
 [node name="PlantSelection" type="Node" parent="."]
 script = ExtResource("5_kafg6")

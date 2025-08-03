@@ -1,90 +1,133 @@
-[gd_scene load_steps=4 format=3 uid="uid://4u312xt5whdy"]
+[gd_scene load_steps=5 format=3 uid="uid://4u312xt5whdy"]
 
 [ext_resource type="Script" uid="uid://busfyffxmdxxd" path="res://ui/scripts/info_panel.gd" id="1_lv2uk"]
 [ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_xmi3u"]
-[ext_resource type="Texture2D" uid="uid://gokhg1fq7k0t" path="res://characters/plants/sprites/plant_1_1.tres" id="3_lv2uk"]
+[ext_resource type="Texture2D" uid="uid://bslghk1d3akkl" path="res://characters/plants/plant3/plant_3_icon.tres" id="3_lv2uk"]
+[ext_resource type="Texture2D" uid="uid://baykl2gagfsri" path="res://characters/plants/sprites/grass_icon.tres" id="4_o5v8q"]
 
-[node name="InfoPanel" type="PanelContainer" node_paths=PackedStringArray("icon", "name_label", "desc_label", "sell_price_label", "progressBar")]
+[node name="InfoPanel" type="PanelContainer" node_paths=PackedStringArray("icon", "name_label", "desc_label", "sell_price_label", "stat_harvested_label", "progressBar")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -77.0
-offset_right = 192.0
-offset_bottom = 307.0
+offset_left = -211.5
+offset_top = -140.5
+offset_right = 211.5
+offset_bottom = 140.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_xmi3u")
 script = ExtResource("1_lv2uk")
-icon = NodePath("MarginContainer/VBoxContainer/AspectRatioContainer/IconPanel/PlantTexture")
-name_label = NodePath("MarginContainer/VBoxContainer/Label")
-desc_label = NodePath("MarginContainer/VBoxContainer/RichTextLabel")
-sell_price_label = NodePath("MarginContainer/VBoxContainer/LabelMoney")
-progressBar = NodePath("MarginContainer/VBoxContainer/ProgressBar")
+icon = NodePath("MarginContainer/Control/HBoxContainer/AspectRatioContainer/IconPanel/PlantIconTexture")
+name_label = NodePath("MarginContainer/Control/HBoxContainer/LabelName")
+desc_label = NodePath("MarginContainer/Control/VBoxContainer1/LabelDescription")
+sell_price_label = NodePath("MarginContainer/Control/VBoxContainer2/LabelMoney")
+stat_harvested_label = NodePath("MarginContainer/Control/VBoxContainer2/LabelHarvested")
+progressBar = NodePath("MarginContainer/Control/VBoxContainer2/ProgressBar")
 metadata/_custom_type_script = "uid://busfyffxmdxxd"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme = ExtResource("1_xmi3u")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="Control" type="Control" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.25
+grow_horizontal = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/Control/HBoxContainer"]
 layout_mode = 2
 
-[node name="IconPanel" type="Panel" parent="MarginContainer/VBoxContainer/AspectRatioContainer"]
+[node name="IconPanel" type="Panel" parent="MarginContainer/Control/HBoxContainer/AspectRatioContainer"]
 clip_children = 1
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_xmi3u")
 theme_type_variation = &"PlantIcon"
 
-[node name="PlantTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/AspectRatioContainer/IconPanel"]
+[node name="GrassBackground" type="TextureRect" parent="MarginContainer/Control/HBoxContainer/AspectRatioContainer/IconPanel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = -384.0
-offset_right = 258.0
-offset_bottom = 128.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_o5v8q")
+expand_mode = 2
+
+[node name="PlantIconTexture" type="TextureRect" parent="MarginContainer/Control/HBoxContainer/AspectRatioContainer/IconPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 texture = ExtResource("3_lv2uk")
+expand_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="LabelName" type="Label" parent="MarginContainer/Control/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("1_xmi3u")
-theme_type_variation = &"HeaderLarge"
-text = "PLANT NAME"
-horizontal_alignment = 1
+theme_type_variation = &"HeaderMedium"
+text = "Water Purification Plant"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer1" type="VBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 16.0
+offset_right = -8.0
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="LabelDescription" type="RichTextLabel" parent="MarginContainer/Control/VBoxContainer1"]
 layout_mode = 2
 theme = ExtResource("1_xmi3u")
 theme_type_variation = &"SecondaryRichTextLabel"
-text = "This is a plant"
+text = "The plant produces a fruit that consists of 92% water, while providing other nutrients and vitamins."
 fit_content = true
 scroll_active = false
-horizontal_alignment = 1
 
-[node name="LabelMoney" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="LabelMoney" type="RichTextLabel" parent="MarginContainer/Control/VBoxContainer2"]
 process_priority = -1
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 theme = ExtResource("1_xmi3u")
 text = "Sell Price: $%d"
 scroll_active = false
-horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+[node name="LabelHarvested" type="Label" parent="MarginContainer/Control/VBoxContainer2"]
+layout_mode = 2
+text = "Harvested %d times"
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Control/VBoxContainer2"]
 visible = false
 layout_mode = 2
