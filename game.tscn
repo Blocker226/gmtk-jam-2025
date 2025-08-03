@@ -194,6 +194,7 @@ script = ExtResource("15_e8heu")
 money = ExtResource("16_rvswv")
 threshold = 6600000000
 fade_duration = 0.5
+start_visible = false
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/EndScreen"]
 layout_mode = 1
