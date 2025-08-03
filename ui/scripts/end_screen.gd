@@ -5,6 +5,6 @@ class_name EndScreen extends SplashScreen
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if money.value >= threshold:
 		visible = true
