@@ -13,9 +13,10 @@ description = "Automates watering of the plant."
 icon = ExtResource("1_h24dh")
 type = 0
 is_repeatable = false
-base_price = 20
+base_price = 40
 requirements = Dictionary[String, Variant]({})
 added_keywords = Dictionary[String, Variant]({
-"sprinkler": 5.0
+"sprinkler": 5.0,
+"sprinkler_time": 0.0
 })
 metadata/_custom_type_script = "uid://hbhgyde4k0cy"

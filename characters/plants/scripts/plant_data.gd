@@ -9,5 +9,5 @@ class_name PlantData extends Resource
 @export var initial_cost: int
 @export var sell_price: int
 
-@export var textures: Array[Texture2D]
 @export var offset: Vector2
+@export var textures: Array[Texture2D]

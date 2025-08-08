@@ -195,6 +195,7 @@ PlantIcon/styles/panel = SubResource("StyleBoxFlat_touxu")
 SecondaryRichTextLabel/base_type = &"RichTextLabel"
 SecondaryRichTextLabel/colors/default_color = Color(0.682353, 0.698039, 0.713726, 1)
 SuccessButton/base_type = &"Button"
+SuccessButton/font_sizes/font_size = 18
 SuccessButton/styles/disabled = SubResource("StyleBoxFlat_tpf0h")
 SuccessButton/styles/hover = SubResource("StyleBoxFlat_5kxjo")
 SuccessButton/styles/normal = SubResource("StyleBoxFlat_mk0s6")

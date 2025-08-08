@@ -124,6 +124,7 @@ plant = ExtResource("9_lc2xo")
 layout_mode = 2
 
 [node name="StartScreen" type="Button" parent="CanvasLayer"]
+visible = false
 z_index = 100
 anchors_preset = 15
 anchor_right = 1.0
