@@ -17,6 +17,6 @@ grow_time = 90.0
 water_effectiveness = 0.9
 initial_cost = 1000
 sell_price = 500
-textures = Array[Texture2D]([ExtResource("2_aan4p"), ExtResource("3_4m0xx"), ExtResource("4_pd4u4"), ExtResource("5_am8dd"), ExtResource("7_2pg4a")])
 offset = Vector2(0, 0)
+textures = Array[Texture2D]([ExtResource("2_aan4p"), ExtResource("3_4m0xx"), ExtResource("4_pd4u4"), ExtResource("5_am8dd"), ExtResource("7_2pg4a")])
 metadata/_custom_type_script = "uid://d38jnkld1yjbe"
