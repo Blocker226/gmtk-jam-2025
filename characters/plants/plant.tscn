@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bicqnypw1y33c"]
+[gd_scene load_steps=33 format=3 uid="uid://bicqnypw1y33c"]
 
 [ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_n4sv4"]
 [ext_resource type="Texture2D" uid="uid://c74t2krgwtclb" path="res://characters/plants/sprites/grass_1.tres" id="2_coccc"]
@@ -15,6 +15,7 @@
 [ext_resource type="FontFile" uid="uid://ca7p87rppkfuv" path="res://fonts/BASQUIAT.otf" id="8_srawq"]
 [ext_resource type="Script" uid="uid://oqxu4osgwk5f" path="res://characters/plants/scripts/plant_upgrades.gd" id="10_uhryd"]
 [ext_resource type="Texture2D" uid="uid://b3e5ai4io1em0" path="res://characters/plants/plant1/plant_1_3.tres" id="11_0s5cb"]
+[ext_resource type="Script" uid="uid://cow41kakkdnjy" path="res://characters/plants/scripts/plant_harvest_bar.gd" id="14_vammy"]
 [ext_resource type="Texture2D" uid="uid://ur55pk74wnfw" path="res://characters/plants/sprites/plant_sprinkler_0.tres" id="16_xons5"]
 [ext_resource type="Texture2D" uid="uid://cen2y0yegpt7k" path="res://characters/plants/sprites/plant_sprinkler_1.tres" id="17_kyk40"]
 [ext_resource type="Texture2D" uid="uid://c54sy8vkf5pey" path="res://characters/plants/sprites/plant_sprinkler_2.tres" id="18_y1jwl"]
@@ -91,7 +92,7 @@ _data = {
 offsets = PackedFloat32Array(0.1, 0.25, 0.75, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Plant" type="Button" node_paths=PackedStringArray("price_label", "upgrades", "floating_text", "water_particles") groups=["Plants"]]
+[node name="Plant" type="Button" node_paths=PackedStringArray("price_label", "upgrades", "floating_text", "harvest_timer", "water_particles") groups=["Plants"]]
 offset_right = 256.0
 offset_bottom = 256.0
 size_flags_horizontal = 3
@@ -104,7 +105,13 @@ money = ExtResource("4_kgrno")
 price_label = NodePath("Label")
 upgrades = NodePath("PlantUpgrades")
 floating_text = NodePath("FloatingTextSpawner")
+harvest_timer = NodePath("HarvestTimer")
 water_particles = NodePath("WaterParticles")
+
+[node name="HarvestTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 1.5
+one_shot = true
 
 [node name="DirtTexture" type="TextureRect" parent="."]
 z_index = -1
@@ -173,13 +180,25 @@ anchor_bottom = 1.0
 offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="HarvestProgressBar" type="ProgressBar" parent="VBoxContainer" node_paths=PackedStringArray("harvest_timer")]
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme = ExtResource("1_n4sv4")
+theme_type_variation = &"PlantHarvestProgressBar"
+show_percentage = false
+script = ExtResource("14_vammy")
+harvest_timer = NodePath("../../HarvestTimer")
 
 [node name="PlantProgressBar" type="ProgressBar" parent="VBoxContainer"]
 z_index = 2
 layout_mode = 2
 script = ExtResource("7_ecky2")
 
-[node name="PlantEvent" type="Node" parent="VBoxContainer/PlantProgressBar"]
+[node name="PlantEvent" type="Node" parent="VBoxContainer"]
 script = ExtResource("6_la6sr")
 metadata/_custom_type_script = "uid://bpgw2mqe64mig"
 
@@ -292,12 +311,15 @@ sound = NodePath("AudioStreamPlayer2D")
 stream = ExtResource("23_iumkd")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="timeout" from="HarvestTimer" to="." method="_on_harvest_timer_timeout"]
 [connection signal="purchased" from="DirtTexture/PlantEvent" to="DirtTexture" method="_on_plant_event_purchased"]
 [connection signal="growth_changed" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_growth_changed"]
 [connection signal="growth_completed" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_growth_completed"]
 [connection signal="harvested" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_harvested"]
 [connection signal="planted" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_planted"]
 [connection signal="purchased" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_purchased"]
-[connection signal="growth_changed" from="VBoxContainer/PlantProgressBar/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_growth_changed"]
-[connection signal="harvested" from="VBoxContainer/PlantProgressBar/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_harvested"]
+[connection signal="growth_changed" from="VBoxContainer/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_growth_changed"]
+[connection signal="harvested" from="VBoxContainer/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_harvested"]
+[connection signal="harvested" from="VBoxContainer/PlantEvent" to="VBoxContainer/HarvestProgressBar" method="_on_plant_event_harvested"]
+[connection signal="state_changed" from="VBoxContainer/PlantEvent" to="VBoxContainer/HarvestProgressBar" method="_on_plant_event_state_changed"]
 [connection signal="upgrade_installed" from="PlantUpgrades" to="DirtTexture" method="_on_plant_upgrades_upgrade_installed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bksikvdgcjcq1"]
+[gd_scene load_steps=22 format=3 uid="uid://bksikvdgcjcq1"]
 
 [ext_resource type="PackedScene" uid="uid://bicqnypw1y33c" path="res://characters/plants/plant.tscn" id="1_e2o6t"]
 [ext_resource type="Resource" uid="uid://f0sjp3ilcmmi" path="res://characters/plants/plant2/plant2.tres" id="2_ryrav"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://dp4xx1u8eix6" path="res://ui/scripts/end_screen.gd" id="15_e8heu"]
 [ext_resource type="Texture2D" uid="uid://dojehwmevu4i5" path="res://ui/logo_Logo.png" id="16_e8heu"]
 [ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="16_rvswv"]
+[ext_resource type="Script" uid="uid://cxne6pmgqbppw" path="res://scripts/window_focus.gd" id="19_boyg6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7sc4i"]
 font = ExtResource("13_215e1")
@@ -40,6 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -259,6 +261,10 @@ grow_vertical = 2
 text = "click anywhere to keep  growing!"
 label_settings = SubResource("LabelSettings_7sc4i")
 horizontal_alignment = 1
+
+[node name="WindowFocus" type="Node" parent="."]
+script = ExtResource("19_boyg6")
+metadata/_custom_type_script = "uid://cxne6pmgqbppw"
 
 [connection signal="pressed" from="CanvasLayer/StartScreen" to="CanvasLayer/StartScreen" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/EndScreen" to="CanvasLayer/EndScreen" method="_on_pressed"]

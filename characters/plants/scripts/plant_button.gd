@@ -1,4 +1,4 @@
-class_name PlantButton extends Button
+class_name PlantButton extends Node
 
 signal plant_pressed(plant: PlantButton)
 signal stats_changed()
@@ -6,7 +6,8 @@ signal stats_changed()
 enum State {
 	EMPTY,
 	GROWING,
-	READY
+	READY,
+	HARVESTING
 }
 
 @export var enabled: bool = false
@@ -15,6 +16,7 @@ enum State {
 @export var price_label: Label
 @export var upgrades: PlantUpgrades
 @export var floating_text: FloatingTextSpawner
+@export var harvest_timer: Timer
 @export_group("Keywords")
 @export var growth_multiply_keyword: String = "growth_multiply"
 @export var water_add_keyword: String = "water_add"
@@ -31,7 +33,13 @@ var stats_harvested: int = 0:
 		stats_harvested = value
 		stats_changed.emit()
 
-var state: State = State.EMPTY
+var state: State = State.EMPTY:
+	get:
+		return state
+	set(value):
+		for event in plant_events:
+			event.state_change(state, value)
+		state = value
 var growth: float = 0
 var plant_events: Array[PlantEvent]
 
@@ -72,11 +80,12 @@ func _on_pressed() -> void:
 	if state == State.EMPTY:
 		_plant()
 		return
-	if growth >= plant.grow_time:
-		harvest()
+	if growth >= plant.grow_time and state != State.HARVESTING:
+		harvest(true)
 		return
-	update_growth(get_water_effectiveness())
-	water_particles.play_at_mouse()
+	elif state != State.HARVESTING:
+		update_growth(get_water_effectiveness())
+		water_particles.play_at_mouse()
 
 
 func update_growth(progress: float) -> bool:
@@ -97,8 +106,17 @@ func update_growth(progress: float) -> bool:
 	return true
 
 
-func harvest() -> void:
+func harvest(manual: bool = false) -> void:
 	growth = 0
+	state = State.HARVESTING
+	if not manual:
+		harvest_timer.start(plant.harvest_time)
+	else:
+		harvest_timer.start(plant.harvest_time / 2)
+
+
+func _on_harvest_timer_timeout() -> void:
+	assert(state == State.HARVESTING)
 	for event in plant_events:
 		event.harvest()
 	state = State.EMPTY
