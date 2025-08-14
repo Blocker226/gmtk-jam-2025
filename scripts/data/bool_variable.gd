@@ -1,6 +1,6 @@
-class_name IntVariable extends SavedResource
+class_name BoolVariable extends SavedResource
 
-@export var value: int:
+@export var value: bool:
 	get:
 		return value
 	set(v):
@@ -11,7 +11,7 @@ func save() -> Dictionary:
 	return {resource_name: value}
 
 func load(data: Variant) -> void:
-	if data is not float:  # JSON numbers are parsed as floats
+	if data is not bool:
 		prints(data, "is not a valid value for", resource_name)
 		return
-	value = int(data)
+	value = data

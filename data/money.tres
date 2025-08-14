@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dt3y56vxslhm6" path="res://scripts/data/int_variable.gd" id="1_jeqra"]
 
 [resource]
+resource_name = "money"
 script = ExtResource("1_jeqra")
 value = 0
 metadata/_custom_type_script = "uid://dt3y56vxslhm6"

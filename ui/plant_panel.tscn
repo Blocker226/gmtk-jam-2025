@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://mcou334my5x6"]
+[gd_scene load_steps=14 format=3 uid="uid://mcou334my5x6"]
 
 [ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_dsenb"]
 [ext_resource type="Script" uid="uid://csp53sermbg1l" path="res://ui/scripts/plant_panel.gd" id="2_4drqn"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://dip7yyw50h5ro" path="res://scripts/plant_selection.gd" id="5_kafg6"]
 [ext_resource type="PackedScene" uid="uid://l0go24ilcv23" path="res://ui/floating_text.tscn" id="6_d5hgs"]
 [ext_resource type="PackedScene" uid="uid://b6vphyoi740a0" path="res://ui/upgrade_menu.tscn" id="7_2opcq"]
+[ext_resource type="Script" uid="uid://cnehh6tseeea3" path="res://ui/scripts/save_menu_button.gd" id="8_ixtmw"]
+[ext_resource type="Resource" uid="uid://nj7rsud5lcgp" path="res://data/autosave.tres" id="9_obrus"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_d5hgs"]
 font_size = 12
@@ -124,14 +126,30 @@ vertical_alignment = 1
 script = ExtResource("5_4drqn")
 news_count = 5
 
+[node name="SaveMenu" type="MenuButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Options"
+item_count = 5
+popup/item_0/text = "Save Game"
+popup/item_0/id = 0
+popup/item_1/text = "Load Game"
+popup/item_1/id = 1
+popup/item_2/text = "Delete Game"
+popup/item_2/id = 2
+popup/item_3/id = 3
+popup/item_3/separator = true
+popup/item_4/text = "Auto-Save (30s)"
+popup/item_4/checkable = 1
+popup/item_4/id = 4
+script = ExtResource("8_ixtmw")
+autosave_setting = ExtResource("9_obrus")
+
 [node name="InfoPanel" parent="VBoxContainer" instance=ExtResource("4_2opcq")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
-layout_mode = 2
 
 [node name="UpgradeMenu" parent="." node_paths=PackedStringArray("selection") instance=ExtResource("7_2opcq")]
 layout_mode = 1
@@ -142,8 +160,6 @@ anchor_bottom = 1.0
 offset_left = 8.0
 offset_right = -8.0
 offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 0
 size_flags_stretch_ratio = 0.8
 selection = NodePath("../PlantSelection")
 
@@ -151,4 +167,7 @@ selection = NodePath("../PlantSelection")
 script = ExtResource("5_kafg6")
 metadata/_custom_type_script = "uid://dip7yyw50h5ro"
 
+[connection signal="delete_pressed" from="VBoxContainer/SaveMenu" to="." method="_on_save_menu_delete_pressed"]
+[connection signal="load_pressed" from="VBoxContainer/SaveMenu" to="." method="_on_save_menu_load_pressed"]
+[connection signal="save_pressed" from="VBoxContainer/SaveMenu" to="." method="_on_save_menu_save_pressed"]
 [connection signal="selection_changed" from="PlantSelection" to="." method="_on_plant_selection_selection_changed"]

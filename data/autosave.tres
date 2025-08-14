@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BoolVariable" load_steps=2 format=3 uid="uid://nj7rsud5lcgp"]
+
+[ext_resource type="Script" uid="uid://d3d8ko7aj136f" path="res://scripts/data/bool_variable.gd" id="1_bkeli"]
+
+[resource]
+resource_name = "autosave"
+script = ExtResource("1_bkeli")
+value = true
+metadata/_custom_type_script = "uid://d3d8ko7aj136f"

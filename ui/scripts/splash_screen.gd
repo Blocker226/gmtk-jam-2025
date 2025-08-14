@@ -20,3 +20,9 @@ func _on_pressed() -> void:
 	_tween.set_ease(Tween.EASE_IN)\
 	.tween_property(self, "modulate", Color(1, 1, 1, 0), fade_duration)
 	_tween.tween_callback(queue_free).set_delay(fade_duration)
+
+
+func _on_save_system_game_loaded() -> void:
+	if _tween:
+		_tween.kill()
+	queue_free()

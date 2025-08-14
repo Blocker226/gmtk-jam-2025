@@ -15,6 +15,7 @@ name = "PLANT3_NAME"
 description = "PLANT3_DESC"
 grow_time = 90.0
 water_effectiveness = 0.9
+harvest_time = 3.0
 initial_cost = 1000
 sell_price = 500
 offset = Vector2(0, 0)

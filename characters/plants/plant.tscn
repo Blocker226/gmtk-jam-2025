@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bicqnypw1y33c"]
+[gd_scene load_steps=34 format=3 uid="uid://bicqnypw1y33c"]
 
 [ext_resource type="Theme" uid="uid://dx8n5sb8fw6e4" path="res://ui_theme.tres" id="1_n4sv4"]
 [ext_resource type="Texture2D" uid="uid://c74t2krgwtclb" path="res://characters/plants/sprites/grass_1.tres" id="2_coccc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c7wnel6l6wxjg" path="res://characters/plants/scripts/plant_texture.gd" id="3_coccc"]
 [ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="4_kgrno"]
 [ext_resource type="Resource" uid="uid://ce5fxm72vyo8d" path="res://characters/plants/plant1/plant1.tres" id="5_4s45c"]
+[ext_resource type="Script" uid="uid://cnfmspwexc4q3" path="res://characters/plants/scripts/plant_save_data.gd" id="5_416vi"]
 [ext_resource type="Script" uid="uid://bpgw2mqe64mig" path="res://characters/plants/scripts/plant_event.gd" id="6_la6sr"]
 [ext_resource type="Script" uid="uid://c180o3q181djf" path="res://characters/plants/scripts/dirt_texture.gd" id="6_wnn8r"]
 [ext_resource type="Texture2D" uid="uid://c37cppw8isn12" path="res://characters/plants/sprites/farm_1.tres" id="7_8fput"]
@@ -112,6 +113,9 @@ water_particles = NodePath("WaterParticles")
 process_callback = 0
 wait_time = 1.5
 one_shot = true
+
+[node name="PlantSaveData" type="Node" parent="."]
+script = ExtResource("5_416vi")
 
 [node name="DirtTexture" type="TextureRect" parent="."]
 z_index = -1
@@ -319,7 +323,7 @@ stream = ExtResource("23_iumkd")
 [connection signal="planted" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_planted"]
 [connection signal="purchased" from="PlantTexture/PlantEvent" to="PlantTexture" method="_on_plant_event_purchased"]
 [connection signal="growth_changed" from="VBoxContainer/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_growth_changed"]
-[connection signal="harvested" from="VBoxContainer/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_harvested"]
 [connection signal="harvested" from="VBoxContainer/PlantEvent" to="VBoxContainer/HarvestProgressBar" method="_on_plant_event_harvested"]
+[connection signal="harvested" from="VBoxContainer/PlantEvent" to="VBoxContainer/PlantProgressBar" method="_on_plant_event_harvested"]
 [connection signal="state_changed" from="VBoxContainer/PlantEvent" to="VBoxContainer/HarvestProgressBar" method="_on_plant_event_state_changed"]
 [connection signal="upgrade_installed" from="PlantUpgrades" to="DirtTexture" method="_on_plant_upgrades_upgrade_installed"]

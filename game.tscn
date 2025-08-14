@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://bksikvdgcjcq1"]
+[gd_scene load_steps=26 format=3 uid="uid://bksikvdgcjcq1"]
 
 [ext_resource type="PackedScene" uid="uid://bicqnypw1y33c" path="res://characters/plants/plant.tscn" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://bakgroewu2rds" path="res://ui/scripts/oriented_container.gd" id="1_e36ub"]
 [ext_resource type="Resource" uid="uid://f0sjp3ilcmmi" path="res://characters/plants/plant2/plant2.tres" id="2_ryrav"]
 [ext_resource type="Resource" uid="uid://b4nii60n8mhea" path="res://characters/plants/plant3/plant3.tres" id="3_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://mcou334my5x6" path="res://ui/plant_panel.tscn" id="3_feb5d"]
@@ -19,6 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://dojehwmevu4i5" path="res://ui/logo_Logo.png" id="16_e8heu"]
 [ext_resource type="Resource" uid="uid://cycm7jlenhewh" path="res://data/money.tres" id="16_rvswv"]
 [ext_resource type="Script" uid="uid://cxne6pmgqbppw" path="res://scripts/window_focus.gd" id="19_boyg6"]
+[ext_resource type="Script" uid="uid://buef8gb6fx6d5" path="res://scripts/save_system.gd" id="21_hb5m1"]
+[ext_resource type="Script" uid="uid://d2ct6elqpi5q4" path="res://scripts/data/saved_resource.gd" id="22_x5p1p"]
+[ext_resource type="Resource" uid="uid://nj7rsud5lcgp" path="res://data/autosave.tres" id="23_qhcbd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7sc4i"]
 font = ExtResource("13_215e1")
@@ -32,6 +36,24 @@ corner_radius_top_right = 32
 
 [node name="Game" type="Node2D"]
 
+[node name="WindowFocus" type="Node" parent="."]
+script = ExtResource("19_boyg6")
+metadata/_custom_type_script = "uid://cxne6pmgqbppw"
+
+[node name="SaveSystem" type="Node" parent="."]
+process_priority = -1
+script = ExtResource("21_hb5m1")
+autosave_setting = ExtResource("23_qhcbd")
+resources = Array[ExtResource("22_x5p1p")]([ExtResource("16_rvswv"), ExtResource("23_qhcbd")])
+
+[node name="AutoSaveTimer" type="Timer" parent="SaveSystem"]
+wait_time = 30.0
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Garden" type="Node2D" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
@@ -43,7 +65,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+[node name="OrientedContainer" type="BoxContainer" parent="CanvasLayer/Control"]
+process_priority = 10
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -55,20 +78,22 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 4
+script = ExtResource("1_e36ub")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer/Control/OrientedContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -78,52 +103,53 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 15
 columns = 3
 
-[node name="Plant" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 
-[node name="Plant2" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant2" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 plant = ExtResource("2_ryrav")
 
-[node name="Plant3" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant3" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 plant = ExtResource("3_fc0e3")
 
-[node name="Plant4" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant4" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 plant = ExtResource("4_7jktm")
 
-[node name="Plant5" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant5" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 plant = ExtResource("5_ryrav")
 
-[node name="Plant6" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant6" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 plant = ExtResource("6_hve3p")
 
-[node name="Plant7" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant7" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 plant = ExtResource("7_mfdv2")
 
-[node name="Plant8" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant8" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 plant = ExtResource("8_iotsf")
 
-[node name="Plant9" parent="CanvasLayer/Control/HBoxContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
+[node name="Plant9" parent="CanvasLayer/Control/OrientedContainer/AspectRatioContainer/MarginContainer/MarginContainer/AspectRatioContainer/GridContainer" instance=ExtResource("1_e2o6t")]
 layout_mode = 2
 plant = ExtResource("9_lc2xo")
 
-[node name="PlantPanel" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource("3_feb5d")]
+[node name="PlantPanel" parent="CanvasLayer/Control/OrientedContainer" instance=ExtResource("3_feb5d")]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="StartScreen" type="Button" parent="CanvasLayer"]
 visible = false
@@ -138,13 +164,15 @@ script = ExtResource("11_lc2xo")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartScreen"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_top = -264.0
-offset_bottom = 1016.0
+anchor_bottom = 1.0
+offset_bottom = 80.0
 grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("11_mfdv2")
-expand_mode = 4
+expand_mode = 2
+stretch_mode = 6
 
 [node name="Label" type="Label" parent="CanvasLayer/StartScreen/TextureRect"]
 layout_mode = 1
@@ -201,13 +229,15 @@ start_visible = false
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/EndScreen"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_top = -264.0
-offset_bottom = 1016.0
+anchor_bottom = 1.0
+offset_bottom = 80.0
 grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("15_80cx4")
-expand_mode = 4
+expand_mode = 2
+stretch_mode = 6
 
 [node name="Label" type="Label" parent="CanvasLayer/EndScreen/TextureRect"]
 layout_mode = 1
@@ -262,9 +292,10 @@ text = "click anywhere to keep  growing!"
 label_settings = SubResource("LabelSettings_7sc4i")
 horizontal_alignment = 1
 
-[node name="WindowFocus" type="Node" parent="."]
-script = ExtResource("19_boyg6")
-metadata/_custom_type_script = "uid://cxne6pmgqbppw"
-
+[connection signal="game_loaded" from="SaveSystem" to="CanvasLayer/StartScreen" method="_on_save_system_game_loaded"]
+[connection signal="timeout" from="SaveSystem/AutoSaveTimer" to="SaveSystem" method="_on_auto_save_timer_timeout"]
+[connection signal="delete_pressed" from="CanvasLayer/Control/OrientedContainer/PlantPanel" to="SaveSystem" method="delete_save"]
+[connection signal="load_pressed" from="CanvasLayer/Control/OrientedContainer/PlantPanel" to="SaveSystem" method="load_game"]
+[connection signal="save_pressed" from="CanvasLayer/Control/OrientedContainer/PlantPanel" to="SaveSystem" method="save_game"]
 [connection signal="pressed" from="CanvasLayer/StartScreen" to="CanvasLayer/StartScreen" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/EndScreen" to="CanvasLayer/EndScreen" method="_on_pressed"]
